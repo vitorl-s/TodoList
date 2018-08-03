@@ -1,0 +1,3 @@
+rootProject.name = 'ribon'
+
+include ':app'
