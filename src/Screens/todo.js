@@ -19,11 +19,13 @@ export default class Todo extends Component {
         };
     }
 
-    addTodo(tasks){
-        // if(tasks){
-        //     return this.setState({...this.state.task})
-        // }
-        alert("oi");
+    addTodo(tasks,task){
+        let teste = task
+        teste.push(tasks)
+        if(tasks){
+            return this.setState({task: teste})
+        }
+        alert(this.state.task);
     }
 
   render() {
@@ -39,6 +41,7 @@ export default class Todo extends Component {
             keyExtractor={(index) => {this.state.key}}
             // renderItem= {(item) => <Text style = {{fontSize:30}}>{item}</Text>
             // }
+            extraData={this.state}
             renderItem={( {item} ) => (<Text style = {{fontSize:22}}> {item} </Text>)}
         />
               
@@ -50,7 +53,7 @@ export default class Todo extends Component {
             containerStyle={{ }}
             style={{ backgroundColor: '#5067FF', marginBottom: 60 }}
             position="bottomRight"
-            onPress={() => (this.addTodo(this.state.tasks))}>
+            onPress={() => (this.addTodo(this.state.tasks,this.state.task))}>
             <Icon name="add" />
           </Fab>
 
