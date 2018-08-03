@@ -6,6 +6,7 @@ import {StyleSheet,
     ScrollView,
     FlatList,
     } from 'react-native';
+import {Fab,Icon,Button} from 'native-base';
 
 export default class Todo extends Component {
 
@@ -13,8 +14,16 @@ export default class Todo extends Component {
         super(props);
         this.state = {
             task : ['oi','oi2'],
-            key: '1'
+            key: '1',
+            tasks: ''
         };
+    }
+
+    addTodo(tasks){
+        // if(tasks){
+        //     return this.setState({...this.state.task})
+        // }
+        alert("oi");
     }
 
   render() {
@@ -27,18 +36,27 @@ export default class Todo extends Component {
         <ScrollView style = {styles.container}>
         <FlatList 
             data={this.state.task} 
-            keyExtractor={(index) => {key: this.state.key}}
+            keyExtractor={(index) => {this.state.key}}
             // renderItem= {(item) => <Text style = {{fontSize:30}}>{item}</Text>
             // }
-            renderItem={( {item} ) => (<Text> title={item} </Text>)}
+            renderItem={( {item} ) => (<Text style = {{fontSize:22}}> {item} </Text>)}
         />
               
             
         </ScrollView>
+        <Fab
+            active={this.state.active}
+            direction="up"
+            containerStyle={{ }}
+            style={{ backgroundColor: '#5067FF', marginBottom: 60 }}
+            position="bottomRight"
+            onPress={() => (this.addTodo(this.state.tasks))}>
+            <Icon name="add" />
+          </Fab>
 
         <View style = {styles.bottom}>
             <TextInput placeholder = 'Type some task to do here' 
-                onChangeText = {(task) => this.setState({task})}
+                onChangeText = {(tasks) => this.setState({tasks})}
             />
         </View>
       </View>
