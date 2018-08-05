@@ -8,14 +8,14 @@ import {StyleSheet,
     TouchableHighlight
     } from 'react-native';
 import {Fab,Icon,Button} from 'native-base';
-import Item from '../Components/item'
+import Item from '../Components/item';
 
 export default class Todo extends Component {
 
     constructor(props){
         super(props);
         this.state = {
-            task : ['oi'],
+            task : ['oi','teste','olá','kk'],
             key: '1',
             tasks: ''
         };
@@ -47,7 +47,7 @@ export default class Todo extends Component {
             // renderItem= {(item) => <Text style = {{fontSize:30}}>{item}</Text>
             // }
             extraData={this.state}
-            renderItem={( {item} ) => <TouchableHighlight> <Text> oioioi </Text> </TouchableHighlight>}
+            renderItem={( {item} ) => (<Item text = {item}/>)}
         />
               
             

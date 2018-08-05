@@ -1,7 +1,6 @@
 import React from 'react';
-//import { connect } from 'react-redux';
 import { Alert, View, TouchableHighlight, Text } from 'react-native';
-import { toggleTodo, removeTodo } from '../Actions/todo';
+//import { toggleTodo, removeTodo } from '../Actions/todo';
 
 
 const styles ={
@@ -14,7 +13,8 @@ const styles ={
     flex: 1
   },
   text: {
-    fontSize: 20
+    fontSize: 20,
+    marginLeft: 10
   },
   completedText: {
     textDecorationLine: 'line-through',
@@ -26,17 +26,17 @@ const styles ={
   },
 }
 
-class Item extends Component {
+class Item extends React.Component {
   render() {
     return (
       <View style={styles.container}>
         <TouchableHighlight
           style={styles.todo}
           underlayColor="#f5f5f5"
-          //onPress={() => this.props.dispatch(toggleTodo(this.props.todo.id))}
+          onPress={() => alert('oi')}
         >
-          <Text>
-            {this.props.todo.text}
+          <Text style = {styles.text}>
+            {this.props.text}
           </Text>
         </TouchableHighlight>
         <TouchableHighlight
@@ -51,4 +51,4 @@ class Item extends Component {
 }
 
 
-export default connect()(TodoItem);
+export default Item;
