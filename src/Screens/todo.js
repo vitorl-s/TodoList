@@ -5,27 +5,32 @@ import {StyleSheet,
     View, 
     ScrollView,
     FlatList,
+    TouchableHighlight
     } from 'react-native';
 import {Fab,Icon,Button} from 'native-base';
+import Item from '../Components/item'
 
 export default class Todo extends Component {
 
     constructor(props){
         super(props);
         this.state = {
-            task : ['oi','oi2'],
+            task : ['oi'],
             key: '1',
             tasks: ''
         };
     }
 
     addTodo(tasks,task){
-        let teste = task
-        teste.push(tasks)
+        
         if(tasks){
-            return this.setState({task: teste})
+            let aux = task
+            aux.push(tasks)
+            this.setState({task: aux, tasks: ''})
         }
-        alert(this.state.task);
+        else{
+            alert('Empty field, please insert a task!');
+        }
     }
 
   render() {
@@ -42,7 +47,7 @@ export default class Todo extends Component {
             // renderItem= {(item) => <Text style = {{fontSize:30}}>{item}</Text>
             // }
             extraData={this.state}
-            renderItem={( {item} ) => (<Text style = {{fontSize:22}}> {item} </Text>)}
+            renderItem={( {item} ) => <TouchableHighlight> <Text> oioioi </Text> </TouchableHighlight>}
         />
               
             
@@ -60,6 +65,7 @@ export default class Todo extends Component {
         <View style = {styles.bottom}>
             <TextInput placeholder = 'Type some task to do here' 
                 onChangeText = {(tasks) => this.setState({tasks})}
+                value = {this.state.tasks}
             />
         </View>
       </View>
