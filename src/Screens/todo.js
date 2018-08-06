@@ -34,19 +34,13 @@ export default class Todo extends Component {
         }
     }
 
-    completeTodo(){
-        if(completed){
-
-        }
-        else{
-
-        }
-    }
-
     deleteTodo(tasks,text){
         let aux = tasks
+        console.log('Antes de remover:', aux)
         var index = aux.indexOf(text)
+        console.log('indice', index);
         aux.splice(index,1)
+        console.log('apos remover:',aux)
         this.setState({tasks: aux})
     }
 
@@ -56,7 +50,6 @@ export default class Todo extends Component {
         <View style = {styles.header}>
             <Text style = {styles.headerText}> Welcome to your favorite todoList! </Text>
         </View>
-        
         <ScrollView style = {styles.container}>
         <FlatList 
             data={this.state.tasks} 
@@ -64,12 +57,10 @@ export default class Todo extends Component {
             extraData={this.state}
             renderItem={( {item} ) => (
                 <Item text = {item} 
-                delete = {() => {this.deleteTodo(this.state.tasks,this.text)}}
+                delete = {() => {this.deleteTodo(this.state.tasks,item)}}
                 />
             )}
-        />
-              
-            
+        />      
         </ScrollView>
         <Fab
             active={this.state.active}
@@ -80,7 +71,6 @@ export default class Todo extends Component {
             onPress={() => (this.addTodo(this.state.text,this.state.tasks))}>
             <Icon name="add" />
           </Fab>
-
         <View style = {styles.bottom}>
             <TextInput placeholder = 'Type some task to do here' 
                 onChangeText = {(text) => this.setState({text})}
