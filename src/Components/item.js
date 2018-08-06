@@ -14,7 +14,8 @@ const styles ={
   },
   text: {
     fontSize: 20,
-    marginLeft: 10
+    marginLeft: 10,
+    color: 'black'
   },
   completedText: {
     textDecorationLine: 'line-through',
@@ -22,8 +23,12 @@ const styles ={
   },
   delete: {
     backgroundColor: 'red',
-    padding: 5
+    padding: 8
   },
+  center:{
+    alignSelf: 'center',
+    justifyContent: 'center'
+  }
 }
 
 class Item extends React.Component {
@@ -33,7 +38,7 @@ class Item extends React.Component {
         <TouchableHighlight
           style={styles.todo}
           underlayColor="#f5f5f5"
-          onPress={() => alert('oi')}
+          onPress={this.props.completed}
         >
           <Text style = {styles.text}>
             {this.props.text}
@@ -41,9 +46,9 @@ class Item extends React.Component {
         </TouchableHighlight>
         <TouchableHighlight
           style={styles.delete}
-          //onPress={() => this.props.dispatch(removeTodo(this.props.todo.id))}
+          onPress={this.props.delete}
         >
-          <Text>X</Text>
+          <Text style = {styles.center}>X</Text>
         </TouchableHighlight>
       </View>
     );

@@ -15,22 +15,39 @@ export default class Todo extends Component {
     constructor(props){
         super(props);
         this.state = {
-            task : ['oi','teste','olá','kk'],
+            tasks : ['oi','teste','olá','kk'],
             key: '1',
-            tasks: ''
+            text: '',
+            completed: false
         };
     }
 
-    addTodo(tasks,task){
+    addTodo(text,tasks){
         
-        if(tasks){
-            let aux = task
-            aux.push(tasks)
-            this.setState({task: aux, tasks: ''})
+        if(text){
+            let aux = tasks
+            aux.push(text)
+            this.setState({tasks: aux, text: ''})
         }
         else{
             alert('Empty field, please insert a task!');
         }
+    }
+
+    completeTodo(){
+        if(completed){
+
+        }
+        else{
+
+        }
+    }
+
+    deleteTodo(tasks,text){
+        let aux = tasks
+        var index = aux.indexOf(text)
+        aux.splice(index,1)
+        this.setState({tasks: aux})
     }
 
   render() {
@@ -42,12 +59,14 @@ export default class Todo extends Component {
         
         <ScrollView style = {styles.container}>
         <FlatList 
-            data={this.state.task} 
+            data={this.state.tasks} 
             keyExtractor={(index) => {this.state.key}}
-            // renderItem= {(item) => <Text style = {{fontSize:30}}>{item}</Text>
-            // }
             extraData={this.state}
-            renderItem={( {item} ) => (<Item text = {item}/>)}
+            renderItem={( {item} ) => (
+                <Item text = {item} 
+                delete = {() => {this.deleteTodo(this.state.tasks,this.text)}}
+                />
+            )}
         />
               
             
@@ -58,14 +77,14 @@ export default class Todo extends Component {
             containerStyle={{ }}
             style={{ backgroundColor: '#5067FF', marginBottom: 60 }}
             position="bottomRight"
-            onPress={() => (this.addTodo(this.state.tasks,this.state.task))}>
+            onPress={() => (this.addTodo(this.state.text,this.state.tasks))}>
             <Icon name="add" />
           </Fab>
 
         <View style = {styles.bottom}>
             <TextInput placeholder = 'Type some task to do here' 
-                onChangeText = {(tasks) => this.setState({tasks})}
-                value = {this.state.tasks}
+                onChangeText = {(text) => this.setState({text})}
+                value = {this.state.text}
             />
         </View>
       </View>
