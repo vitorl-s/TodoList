@@ -1,14 +1,12 @@
 import React, {Component} from 'react';
-import {StyleSheet, 
-    Text, 
+import {Text, 
     TextInput, 
     View, 
-    ScrollView,
     FlatList,
-    TouchableHighlight
     } from 'react-native';
-import {Fab,Icon,Button} from 'native-base';
+
 import Item from '../Components/item';
+import AddButton from '../Components/addButton';
 
 export default class Todo extends Component {
 
@@ -35,12 +33,9 @@ export default class Todo extends Component {
     }
 
     deleteTodo(tasks,text){
-        let aux = tasks
-        console.log('Antes de remover:', aux)
-        var index = aux.indexOf(text)
-        console.log('indice', index);
-        aux.splice(index,1)
-        console.log('apos remover:',aux)
+        let aux = tasks;
+        var index = aux.indexOf(text);
+        aux.splice(index,1);
         this.setState({tasks: aux})
     }
 
@@ -50,7 +45,6 @@ export default class Todo extends Component {
         <View style = {styles.header}>
             <Text style = {styles.headerText}> Welcome to your favorite todoList! </Text>
         </View>
-        <ScrollView style = {styles.container}>
         <FlatList 
             data={this.state.tasks} 
             keyExtractor={(index) => {this.state.key}}
@@ -58,23 +52,15 @@ export default class Todo extends Component {
             renderItem={( {item} ) => (
                 <Item text = {item} 
                 delete = {() => {this.deleteTodo(this.state.tasks,item)}}
-                />
-            )}
-        />      
-        </ScrollView>
-        <Fab
-            active={this.state.active}
-            direction="up"
-            containerStyle={{ }}
-            style={{ backgroundColor: '#5067FF', marginBottom: 60 }}
-            position="bottomRight"
-            onPress={() => (this.addTodo(this.state.text,this.state.tasks))}>
-            <Icon name="add" />
-          </Fab>
+                />)}
+        />
+        <AddButton addTodo = {() => this.addTodo(this.state.text,this.state.tasks)}/>
         <View style = {styles.bottom}>
             <TextInput placeholder = 'Type some task to do here' 
                 onChangeText = {(text) => this.setState({text})}
                 value = {this.state.text}
+                style = {{fontSize: 20}}
+                placeholderTextColor = 'black'
             />
         </View>
       </View>
@@ -82,14 +68,14 @@ export default class Todo extends Component {
   }
 }
 
-const styles = StyleSheet.create({
+const styles = {
     container: {
       flex: 1
     },
     header:{
         backgroundColor: 'lightblue',
         alignItems: 'center',
-        padding: 20,
+        padding: 16,
         borderBottomWidth: 2,
         borderBottomColor: 'black'
     },
@@ -98,11 +84,8 @@ const styles = StyleSheet.create({
         color: 'purple'
     },
     bottom:{
-        backgroundColor: 'gray',
-        padding: 11
+        backgroundColor: 'lightblue',
+        padding: 9
     },
-    addButton:{
-
-    }
-  });
+  };
   
