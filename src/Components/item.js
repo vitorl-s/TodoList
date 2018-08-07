@@ -1,14 +1,58 @@
 import React from 'react';
-import { Alert, View, TouchableHighlight, Text } from 'react-native';
+import {StyleSheet, View, TouchableHighlight, Text } from 'react-native';
 import {Icon,Button} from 'native-base';
+import EditModal from '../Components/editModal';
 
-const styles ={
+class Item extends React.Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      completed : false
+    };
+  }
+
+  completeTodo(){
+    this.setState({completed: !this.state.completed})
+    console.log(this.state.completed);
+}
+  render() {
+    return (
+      <View style={styles.container}>
+        <TouchableHighlight style={styles.item} underlayColor = 'transparent'
+        onPress={() => this.completeTodo()}
+        >
+          <Text style = {[styles.text, this.state.completed ? styles.completedText : {}]}>
+            {this.props.text}
+          </Text>
+
+        </TouchableHighlight>
+        <Button transparent = {true} iconRight style = {styles.editButton} small>
+          <Icon name= 'edit' style = {styles.delete} type = 'Entypo' onPress={this.props.edit}/>
+        </Button>
+
+        <EditModal visible={this.props.visible} 
+        confirmEdit = {this.props.confirmEdit}
+        onChangeText = {this.props.onChangeText}/>
+
+        <View style = {styles.deleteButton}>
+          <Button transparent = {true} iconRight>
+              <Icon name= 'delete' style = {styles.delete} type = 'MaterialCommunityIcons'
+                onPress={this.props.delete}
+              />
+          </Button>
+        </View>
+    </View>
+    );
+  }
+}
+
+const styles = StyleSheet.create({
   container: {
     height: 40,
     borderBottomWidth: 1,
     flexDirection: 'row',
   },
-  todo: {
+  item: {
     flex: 1
   },
   text: {
@@ -24,10 +68,6 @@ const styles ={
   delete: {
     fontSize: 26
   },
-  center:{
-    alignSelf: 'center',
-    justifyContent: 'center'
-  },
   deleteButton:{
     marginTop: 5,
     alignSelf: 'center',
@@ -35,39 +75,7 @@ const styles ={
   },
   editButton:{
     marginTop: 5
-  }
-}
-
-class Item extends React.Component {
-  render() {
-    return (
-      <View style={styles.container}>
-        <TouchableHighlight style={styles.todo}
-          underlayColor="#f5f5f5"
-          onPress={this.props.completed}
-        >
-          <Text style = {styles.text}>
-            {this.props.text}
-          </Text>
-        </TouchableHighlight>
-        <Button transparent = {true} iconRight style = {styles.editButton} small>
-              <Icon name= 'edit' style = {styles.delete}
-                type = 'Entypo'
-                onPress={this.props.edit}
-              />
-            </Button>
-        <View style = {styles.deleteButton}>
-          <Button transparent = {true} iconRight>
-              <Icon name= 'delete' style = {styles.delete}
-                type = 'MaterialCommunityIcons'
-                onPress={this.props.delete}
-              />
-            </Button>
-          </View>
-      </View>
-    );
-  }
-}
+  }});
 
 
 export default Item;
